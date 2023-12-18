@@ -7,13 +7,25 @@ public abstract class Car {
      * @throws IllegalArgumentException if startingOdometerValue is
      *                                  negative
      */
+    private String make;
+    private String model;
+    private double startingOdometerValue;
     public Car(String make, String model, double startingOdometerValue) {
-
+        this.make = make;
+        this.model = model;
+        if (startingOdometerValue < 0) {
+            throw new IllegalArgumentException("Invalid starting odometer value " + startingOdometerValue);
+        }
+        this.startingOdometerValue = startingOdometerValue;
+        
     }
 
     /** Defaults startingOdometerValue to 0. */
     public Car(String make, String model) {
-
+        this.make = make;
+        this.model = model;
+        startingOdometerValue = 0;
+    
     }
 
     /**
@@ -24,15 +36,18 @@ public abstract class Car {
      * @throws IllegalArgumentException if miles is negative.
      */
     public boolean canDrive(double miles) {
-
+        if (miles < 0){
+            throw new IllegalArgumentException("Invalid miles input: " + miles);
+        }
+        return (getRemainingRange() >= miles);
     }
 
 /** Drives the full given number of miles.
     @throws IllegalArgumentException if miles is negative or if miles is
 too high given the current fuel. */
-    public abstract void drive(double miles){
-
-    }
+    public abstract void drive(double miles);
+        
+    
 
     /**
      * Gives String representation of Car as
@@ -41,28 +56,27 @@ too high given the current fuel. */
      * whole number, ".0" should still display.
      */
     public String toString() {
-
+        return String.format("%s %s %.1f mi", getMake(), getModel(), getOdometerMiles());
     }
 
     /** Returns how many miles have been driven so far (odometer). */
     public double getOdometerMiles() {
-
+        
     }
 
     /** Returns the make of the car. */
     public String getMake() {
-
+        return make;
     }
 
     /** Returns the model of the car. */
     public String getModel() {
+        return model;
     }
 
 /** Returns how many more miles the car can currently go given the
 remaining fuel/energy reserves. */
-    public abstract double getRemainingRange(){
-    
-    }
+    public abstract double getRemainingRange();
 
     /**
      * Adds miles to the odometer.
@@ -70,7 +84,10 @@ remaining fuel/energy reserves. */
      * @throws IllegalArgumentException if miles is negative.
      */
     protected void addMiles(double miles) {
-
+        if (miles < 0){
+            throw new IllegalArgumentException("Invalid miles input: " + miles);
+        }
+        startingOdometerValue += miles;
     };
 
     /**
