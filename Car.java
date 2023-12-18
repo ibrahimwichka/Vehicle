@@ -1,6 +1,6 @@
-package Vehicle;
 
-public class Car {
+
+public abstract class Car {
     /**
      * Creates a car with starting total miles on the odometer.
      * 
