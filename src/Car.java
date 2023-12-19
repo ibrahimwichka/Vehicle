@@ -1,4 +1,6 @@
+package src;
 
+import java.util.List;
 
 public abstract class Car {
     /**
@@ -9,14 +11,14 @@ public abstract class Car {
      */
     private String make;
     private String model;
-    private double startingOdometerValue;
+    private double miles;
     public Car(String make, String model, double startingOdometerValue) {
         this.make = make;
         this.model = model;
         if (startingOdometerValue < 0) {
             throw new IllegalArgumentException("Invalid starting odometer value " + startingOdometerValue);
         }
-        this.startingOdometerValue = startingOdometerValue;
+        this.miles = startingOdometerValue;
         
     }
 
@@ -24,7 +26,7 @@ public abstract class Car {
     public Car(String make, String model) {
         this.make = make;
         this.model = model;
-        startingOdometerValue = 0;
+        miles = 0;
     
     }
 
@@ -61,7 +63,7 @@ too high given the current fuel. */
 
     /** Returns how many miles have been driven so far (odometer). */
     public double getOdometerMiles() {
-        
+        return miles;
     }
 
     /** Returns the make of the car. */
@@ -87,7 +89,7 @@ remaining fuel/energy reserves. */
         if (miles < 0){
             throw new IllegalArgumentException("Invalid miles input: " + miles);
         }
-        startingOdometerValue += miles;
+        this.miles += miles;
     };
 
     /**
@@ -102,6 +104,20 @@ remaining fuel/energy reserves. */
      *                                  is attempted.
      */
     public int roadTrip(List<Double> milesEachDay) {
-
+        for (int i=0;i<milesEachDay.size();i++) {
+            if (milesEachDay.get(i) < 0)
+                throw new IllegalArgumentException("Invalid miles input for day " + (i+1) + ": " + milesEachDay.get(i));
+        }
+        int days = 0;
+        for (int i=0;i<milesEachDay.size();i++) {
+            try {
+                drive(milesEachDay.get(i));
+            }
+            catch (IllegalArgumentException ex){
+                
+            }
+            days++;
+        }
+        return days;
     }
 }
