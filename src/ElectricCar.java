@@ -6,7 +6,11 @@ public abstract class ElectricCar extends Car {
      * 
      * @throws IllegalArgumentException if milesOnMaxCharge is nonpositive.
      */
+    private double milesOnMaxCharge;
+    private double range;
     public ElectricCar(String make, String model, double startingOdometerValue, double milesOnMaxCharge) {
+        super(make, model, startingOdometerValue);
+        range = milesOnMaxCharge;
     }
 
     /**
@@ -15,6 +19,8 @@ public abstract class ElectricCar extends Car {
      * @throws IllegalArgumentException if milesOnMaxCharge is nonpositive.
      */
     public ElectricCar(String make, String model, double milesOnMaxCharge) {
+        super(make, model);
+        range = milesOnMaxCharge;
     }
 
     /**
@@ -25,6 +31,13 @@ public abstract class ElectricCar extends Car {
      *                                  current charge.
      */
     public void drive(double miles) {
+        if (miles < 0){
+            throw new IllegalArgumentException("Miles input: " + miles + " is too low.");
+        }
+        if (miles > milesOnMaxCharge){
+            throw new IllegalArgumentException("Miles input: " + miles + " is too high.");
+        }
+        // To Do
     }
 
     /**
@@ -32,14 +45,17 @@ public abstract class ElectricCar extends Car {
      * recharging.
      */
     public double getRemainingRange() {
+        return range;
     }
 
     /** Returns how many miles the car could go on a full charge. */
     public double getMaxRange() {
+        return milesOnMaxCharge;
     }
 
     /** Recharges the car to max range capability. */
     public void recharge() {
+        // ToDO
     }
 
     /**
@@ -47,6 +63,7 @@ public abstract class ElectricCar extends Car {
      * of miles passed as an argument.
      */
     protected void decreaseCharge(double miles) {
+        // ToDo
     }
 
 }

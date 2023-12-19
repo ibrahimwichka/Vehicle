@@ -104,18 +104,12 @@ remaining fuel/energy reserves. */
      *                                  is attempted.
      */
     public int roadTrip(List<Double> milesEachDay) {
-        for (int i=0;i<milesEachDay.size();i++) {
-            if (milesEachDay.get(i) < 0)
-                throw new IllegalArgumentException("Invalid miles input for day " + (i+1) + ": " + milesEachDay.get(i));
-        }
         int days = 0;
         for (int i=0;i<milesEachDay.size();i++) {
-            try {
-                drive(milesEachDay.get(i));
+            if (milesEachDay.get(i) < 0) {
+                throw new IllegalArgumentException("Invalid miles input for day " + (i+1) + ": " + milesEachDay.get(i));
             }
-            catch (IllegalArgumentException ex){
-                
-            }
+            drive(milesEachDay.get(i));
             days++;
         }
         return days;
