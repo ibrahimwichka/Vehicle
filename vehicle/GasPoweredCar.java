@@ -16,11 +16,11 @@ public abstract class GasPoweredCar extends Car {
             throw new IllegalArgumentException("Invalid mpg input: " + mpg);
         }
         if (fuelCapacityGallons <= 0){
-            throw new IllegalArgumentException("Invalid fuel capacity: " + fuelCapacityGallons);
+            throw new IllegalArgumentException("Invalid fuel capacity input: " + fuelCapacityGallons);
         }
         this.mpg = mpg;
         this.fuelCapacityGallons = fuelCapacityGallons;
-        fuelLevel = this.fuelCapacityGallons;
+        fuelLevel = fuelCapacityGallons;
     }
 
     /**
@@ -35,10 +35,11 @@ public abstract class GasPoweredCar extends Car {
             throw new IllegalArgumentException("Invalid mpg input: " + mpg);
         }
         if (fuelCapacityGallons <= 0){
-            throw new IllegalArgumentException("Invalid fuel capacity: " + fuelCapacityGallons);
+            throw new IllegalArgumentException("Invalid fuel capacity input: " + fuelCapacityGallons);
         }
         this.mpg = mpg;
         this.fuelCapacityGallons = fuelCapacityGallons;
+        fuelLevel = fuelCapacityGallons;
     }
 
     /**
@@ -50,12 +51,15 @@ public abstract class GasPoweredCar extends Car {
      */
     public void drive(double miles) {
         if (miles < 0){
-            throw new IllegalArgumentException("Miles input: " + miles + " is too low.");
+            throw new IllegalArgumentException("Miles input: " + miles + " is negative.");
         }
-        if (miles > fuelCapacityGallons){
+        if ((miles / mpg) > fuelLevel){
             throw new IllegalArgumentException("Miles input: " + miles + " is too high.");
         }
-        // To Do
+        if (canDrive(miles)) {
+            addMiles(miles);
+            decreaseFuelLevel(miles);
+        }
     }
 
     /** Returns how many miles can be driven on one gallon of gas. */
@@ -107,7 +111,7 @@ public abstract class GasPoweredCar extends Car {
      * mpg and the number of miles passed as an argument.
      */
     protected void decreaseFuelLevel(double miles) {
-        fuelLevel -= (miles * (1/ mpg));
+        fuelLevel -= (miles / mpg);
     };
 
 }

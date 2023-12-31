@@ -58,7 +58,7 @@ too high given the current fuel. */
      * whole number, ".0" should still display.
      */
     public String toString() {
-        return String.format("%s %s %.1f mi", getMake(), getModel(), getOdometerMiles());
+        return String.format("%s %s (%.1f mi)", getMake(), getModel(), getOdometerMiles());
     }
 
     /** Returns how many miles have been driven so far (odometer). */
@@ -76,8 +76,8 @@ too high given the current fuel. */
         return model;
     }
 
-/** Returns how many more miles the car can currently go given the
-remaining fuel/energy reserves. */
+    /** Returns how many more miles the car can currently go given the
+    remaining fuel/energy reserves. */
     public abstract double getRemainingRange();
 
     /**
@@ -87,7 +87,7 @@ remaining fuel/energy reserves. */
      */
     protected void addMiles(double miles) {
         if (miles < 0){
-            throw new IllegalArgumentException("Invalid miles input: " + miles);
+            throw new IllegalArgumentException("Invalid miles input");
         }
         this.miles += miles;
     };
@@ -104,14 +104,19 @@ remaining fuel/energy reserves. */
      *                                  is attempted.
      */
     public int roadTrip(List<Double> milesEachDay) {
-        int days = 0;
-        for (int i=0;i<milesEachDay.size();i++) {
-            if (milesEachDay.get(i) < 0) {
-                throw new IllegalArgumentException("Invalid miles input for day " + (i+1) + ": " + milesEachDay.get(i));
+        for (int i = 0; i < milesEachDay.size(); i++) {
+            if (milesEachDay.get(i) < 0)
+                throw new IllegalArgumentException("Invalid miles input");
+        }
+        int daysDriven = 0;
+        for (int i = 0; i < milesEachDay.size(); i++) {
+            if (!canDrive(milesEachDay.get(i))) {
+                break;
             }
             drive(milesEachDay.get(i));
-            days++;
+            daysDriven++;
         }
-        return days;
+
+        return daysDriven;
     }
 }

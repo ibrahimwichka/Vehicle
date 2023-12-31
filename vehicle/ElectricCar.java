@@ -7,10 +7,12 @@ public abstract class ElectricCar extends Car {
      * @throws IllegalArgumentException if milesOnMaxCharge is nonpositive.
      */
     private double milesOnMaxCharge;
-    private double range;
+    private double rem_range;
+
     public ElectricCar(String make, String model, double startingOdometerValue, double milesOnMaxCharge) {
         super(make, model, startingOdometerValue);
-        range = milesOnMaxCharge;
+        this.milesOnMaxCharge = milesOnMaxCharge;
+        rem_range = milesOnMaxCharge;
     }
 
     /**
@@ -20,7 +22,8 @@ public abstract class ElectricCar extends Car {
      */
     public ElectricCar(String make, String model, double milesOnMaxCharge) {
         super(make, model);
-        range = milesOnMaxCharge;
+        this.milesOnMaxCharge = milesOnMaxCharge;
+        rem_range = milesOnMaxCharge;
     }
 
     /**
@@ -32,12 +35,15 @@ public abstract class ElectricCar extends Car {
      */
     public void drive(double miles) {
         if (miles < 0){
-            throw new IllegalArgumentException("Miles input: " + miles + " is too low.");
+            throw new IllegalArgumentException("Miles input: " + miles + " is negative");
         }
-        if (miles > milesOnMaxCharge){
+        if (miles > rem_range){
             throw new IllegalArgumentException("Miles input: " + miles + " is too high.");
         }
-        // To Do
+        if (canDrive(miles)) {
+            addMiles(miles);
+            decreaseCharge(miles);
+        }
     }
 
     /**
@@ -45,7 +51,7 @@ public abstract class ElectricCar extends Car {
      * recharging.
      */
     public double getRemainingRange() {
-        return range;
+        return rem_range;
     }
 
     /** Returns how many miles the car could go on a full charge. */
@@ -55,7 +61,7 @@ public abstract class ElectricCar extends Car {
 
     /** Recharges the car to max range capability. */
     public void recharge() {
-        // ToDO
+        rem_range = milesOnMaxCharge;
     }
 
     /**
@@ -63,7 +69,7 @@ public abstract class ElectricCar extends Car {
      * of miles passed as an argument.
      */
     protected void decreaseCharge(double miles) {
-        // ToDo
+        rem_range -=miles;
     }
 
 }
