@@ -1,4 +1,4 @@
-package src;
+package vehicle;
 public class TeslaModelZ extends ElectricCar implements SelfDriving{
     public TeslaModelZ(double startingOdometerValue, int modelNum){
 

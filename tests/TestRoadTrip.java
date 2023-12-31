@@ -1,4 +1,4 @@
-package testers.tests;
+package tests;
 
 import java.util.List;
 

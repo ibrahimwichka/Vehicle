@@ -1,4 +1,4 @@
-package testers.bcatest;
+package bcatest;
 
 import java.io.File;
 import java.util.ArrayList;

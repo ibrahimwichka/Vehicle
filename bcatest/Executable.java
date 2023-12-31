@@ -1,4 +1,4 @@
-package testers.bcatest;
+package bcatest;
 
 /** Source JUnit Executable implementation
  * Simplified for our introductory testing purposes. */

@@ -1,4 +1,4 @@
-package testers.tests;
+package tests;
 
 import vehicle.ChevroletBird;
 import bcatest.BCATestScenario;

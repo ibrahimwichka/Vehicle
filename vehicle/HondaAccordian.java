@@ -1,8 +1,10 @@
-package src;
+package vehicle;
 public class HondaAccordian extends GasPoweredCar{
 
-    public HondaAccordian(double startingOdometerValue, int modelYear){
+    private int modelYear;
 
+    public HondaAccordian(double startingOdometerValue, int modelYear){
+        
     }
     /** Defaults startingOdometerValue to 0. */
     public HondaAccordian(int year){

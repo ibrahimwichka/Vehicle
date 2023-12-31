@@ -1,4 +1,4 @@
-package testers.bcatest;
+package bcatest;
 
 public abstract class BCATestScenario {
     public static final double DELTA = .01;
